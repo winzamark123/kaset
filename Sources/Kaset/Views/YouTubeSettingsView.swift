@@ -9,6 +9,13 @@ struct YouTubeSettingsView: View {
     var body: some View {
         Form {
             Section {
+                Toggle(String(localized: "Autoplay Related Videos"), isOn: self.$settings.youtubeAutoplayEnabled)
+                    .help(String(localized: "Automatically play a related video when the current video ends."))
+            } header: {
+                Text(String(localized: "Playback"))
+            }
+
+            Section {
                 Toggle(String(localized: "Ambient Color Backdrop"), isOn: self.$settings.ambientBackdropEnabled)
                     .help(String(localized: "Show a soft color glow, drawn from the video, behind the player"))
 

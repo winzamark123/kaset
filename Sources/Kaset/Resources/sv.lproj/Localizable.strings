@@ -52,6 +52,8 @@
 "Audiobook" = "Ljudbok";
 "Auto" = "Automatiskt";
 "Automatically check for updates" = "Sök efter uppdateringar automatiskt";
+"Automatically play a related video when the current video ends." = "Spelar automatiskt upp en relaterad video när den aktuella videon är slut.";
+"Autoplay Related Videos" = "Spela upp relaterade videor automatiskt";
 "Available" = "Tillgänglig";
 "Back 30 seconds" = "Tillbaka 30 sekunder";
 "Background Playback" = "Uppspelning i bakgrunden";

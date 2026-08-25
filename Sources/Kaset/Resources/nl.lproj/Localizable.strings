@@ -52,6 +52,8 @@
 "Audiobook" = "Luisterboek";
 "Auto" = "Automatisch";
 "Automatically check for updates" = "Automatisch op updates controleren";
+"Automatically play a related video when the current video ends." = "Speelt automatisch een gerelateerde video af wanneer de huidige video eindigt.";
+"Autoplay Related Videos" = "Gerelateerde video's automatisch afspelen";
 "Available" = "Beschikbaar";
 "Back 30 seconds" = "30 seconden terug";
 "Background Playback" = "Achtergrondweergave";

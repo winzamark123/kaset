@@ -93,6 +93,52 @@ struct SettingsManagerTests {
         #expect(UserDefaults.standard.bool(forKey: SettingsManager.Keys.popOutVideoOnNavigateAway) == true)
     }
 
+    @Test("Missing YouTube autoplay value loads as false")
+    func missingYouTubeAutoplayLoadsAsFalse() throws {
+        let suiteName = "SettingsManagerTests.youtubeAutoplayEnabled.missing.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+
+        defaults.removePersistentDomain(forName: suiteName)
+
+        #expect(SettingsManager.loadYouTubeAutoplayEnabled(from: defaults) == false)
+    }
+
+    @Test("Stored YouTube autoplay value loads as true")
+    func storedYouTubeAutoplayLoadsAsTrue() throws {
+        let suiteName = "SettingsManagerTests.youtubeAutoplayEnabled.true.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+
+        defaults.set(true, forKey: SettingsManager.Keys.youtubeAutoplayEnabled)
+
+        #expect(SettingsManager.loadYouTubeAutoplayEnabled(from: defaults) == true)
+    }
+
+    @Test("YouTube autoplay persists to UserDefaults")
+    func youtubeAutoplayPersists() {
+        let manager = SettingsManager.shared
+        let defaults = UserDefaults.standard
+        let key = SettingsManager.Keys.youtubeAutoplayEnabled
+        let originalValue = manager.youtubeAutoplayEnabled
+        let originalStoredObject = defaults.object(forKey: key)
+
+        defer {
+            manager.youtubeAutoplayEnabled = originalValue
+            if let originalStoredObject {
+                defaults.set(originalStoredObject, forKey: key)
+            } else {
+                defaults.removeObject(forKey: key)
+            }
+        }
+
+        manager.youtubeAutoplayEnabled = true
+        #expect(defaults.object(forKey: key) as? Bool == true)
+
+        manager.youtubeAutoplayEnabled = false
+        #expect(defaults.object(forKey: key) as? Bool == false)
+    }
+
     @Test("Missing keepYouTubeVideoOnTop value loads as false")
     func missingKeepYouTubeVideoOnTopLoadsAsFalse() throws {
         let suiteName = "SettingsManagerTests.keepYouTubeVideoOnTop.missing.\(UUID().uuidString)"

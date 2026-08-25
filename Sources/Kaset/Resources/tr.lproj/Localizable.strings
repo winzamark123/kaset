@@ -52,6 +52,8 @@
 "Audiobook" = "Sesli Kitap";
 "Auto" = "Otomatik";
 "Automatically check for updates" = "Güncellemeleri otomatik denetle";
+"Automatically play a related video when the current video ends." = "Geçerli video sona erdiğinde ilgili bir videoyu otomatik olarak oynatır.";
+"Autoplay Related Videos" = "İlgili Videoları Otomatik Oynat";
 "Available" = "Kullanılabilir";
 "Back 30 seconds" = "30 saniye geri";
 "Background Playback" = "Arka Planda Oynatma";

@@ -52,6 +52,8 @@
 "Audiobook" = "كتاب صوتي";
 "Auto" = "تلقائي";
 "Automatically check for updates" = "التحقق تلقائيًا من التحديثات";
+"Automatically play a related video when the current video ends." = "شغّل مقطع فيديو ذا صلة تلقائيًا عند انتهاء الفيديو الحالي.";
+"Autoplay Related Videos" = "تشغيل مقاطع الفيديو ذات الصلة تلقائيًا";
 "Available" = "متاح";
 "Back 30 seconds" = "رجوع 30 ثانية";
 "Background Playback" = "التشغيل في الخلفية";

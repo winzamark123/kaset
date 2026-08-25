@@ -180,6 +180,20 @@ page:
    per-frame while active. Defines `window.__kasetExtractVideo()` so
    `didFinish` can re-run it on cached loads.
 
+### Related Video Autoplay
+
+**Autoplay Related Videos** is available under Settings → YouTube → Playback
+and is off by default. After an accepted video completion, Kaset advances to
+the first non-Short video in `YouTubePlayerService.upNext`. If that list is
+empty, it fetches the current video's related list through `getWatchNext`.
+Playback remains ended when no related video is available or the request fails.
+A newer playback command or disabling the setting while a request is in flight
+invalidates the pending autoplay transition.
+
+YouTube's page-owned autonav remains disabled. Kaset owns the transition so its
+player state, watch history, inline navigation, and floating window stay in
+sync.
+
 Captions and quality are driven through the `movie_player` API
 (`getOption('captions','tracklist')`, `setPlaybackQualityRange`), fetched
 with retries once playback starts; the caption overlay is whitelisted in

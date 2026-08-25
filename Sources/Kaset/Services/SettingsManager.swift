@@ -34,6 +34,7 @@ final class SettingsManager {
         static let ambientBackdropEnabled = "settings.ambientBackdropEnabled"
         static let ambientBackdropStyle = "settings.ambientBackdropStyle"
         static let popOutVideoOnNavigateAway = "settings.popOutVideoOnNavigateAway"
+        static let youtubeAutoplayEnabled = "settings.youtubeAutoplayEnabled"
         #if DEBUG
             static let useLegacyMacOS15UI = "settings.debug.useLegacyMacOS15UI"
         #endif
@@ -448,6 +449,14 @@ final class SettingsManager {
         }
     }
 
+    /// Whether a related video starts after the current YouTube video ends.
+    /// Applies to regular YouTube videos only, not the Music experience.
+    var youtubeAutoplayEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(self.youtubeAutoplayEnabled, forKey: Keys.youtubeAutoplayEnabled)
+        }
+    }
+
     /// The style the YouTube watch page should request: the chosen style when
     /// enabled, `.off` when the feature is disabled. Runtime energy/accessibility
     /// downgrades are applied inside `AmbientVideoBackdrop`, which observes those
@@ -494,6 +503,10 @@ final class SettingsManager {
         defaults.object(forKey: Keys.keepYouTubeVideoOnTop) as? Bool ?? false
     }
 
+    static func loadYouTubeAutoplayEnabled(from defaults: UserDefaults) -> Bool {
+        defaults.object(forKey: Keys.youtubeAutoplayEnabled) as? Bool ?? false
+    }
+
     private init() {
         // Load persisted settings or use defaults
         self.showNowPlayingNotifications = UserDefaults.standard.object(forKey: Keys.showNowPlayingNotifications) as? Bool ?? true
@@ -531,6 +544,7 @@ final class SettingsManager {
         )
         self.ambientBackdropEnabled = UserDefaults.standard.object(forKey: Keys.ambientBackdropEnabled) as? Bool ?? true
         self.popOutVideoOnNavigateAway = UserDefaults.standard.object(forKey: Keys.popOutVideoOnNavigateAway) as? Bool ?? true
+        self.youtubeAutoplayEnabled = Self.loadYouTubeAutoplayEnabled(from: UserDefaults.standard)
         #if DEBUG
             self.useLegacyMacOS15UI = UserDefaults.standard.object(forKey: Keys.useLegacyMacOS15UI) as? Bool ?? false
         #endif
