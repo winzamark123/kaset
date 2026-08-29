@@ -99,8 +99,6 @@ struct SettingsManagerTests {
         let defaults = try #require(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
 
-        defaults.removePersistentDomain(forName: suiteName)
-
         #expect(SettingsManager.loadYouTubeAutoplayEnabled(from: defaults) == false)
     }
 
@@ -121,15 +119,8 @@ struct SettingsManagerTests {
         let defaults = UserDefaults.standard
         let key = SettingsManager.Keys.youtubeAutoplayEnabled
         let originalValue = manager.youtubeAutoplayEnabled
-        let originalStoredObject = defaults.object(forKey: key)
-
         defer {
             manager.youtubeAutoplayEnabled = originalValue
-            if let originalStoredObject {
-                defaults.set(originalStoredObject, forKey: key)
-            } else {
-                defaults.removeObject(forKey: key)
-            }
         }
 
         manager.youtubeAutoplayEnabled = true
