@@ -52,6 +52,8 @@
 "Audiobook" = "Аудиокнига";
 "Auto" = "Авто";
 "Automatically check for updates" = "Автоматически проверять обновления";
+"Automatically play a related video when the current video ends." = "Автоматически воспроизводит похожее видео после окончания текущего.";
+"Autoplay Related Videos" = "Автовоспроизведение похожих видео";
 "Available" = "Доступно";
 "Back 30 seconds" = "Назад на 30 секунд";
 "Background Playback" = "Фоновое воспроизведение";

@@ -302,7 +302,7 @@ final class YouTubePlayerService {
     /// Called right before video playback starts (PlaybackArbiter pauses music).
     var playbackWillStart: (() -> Void)?
 
-    /// Called when the current video finishes (WatchView advances to related).
+    /// Called when the current video finishes.
     var onVideoEnded: ((String?) -> Void)?
 
     // MARK: - Dependencies
@@ -319,15 +319,21 @@ final class YouTubePlayerService {
     /// without touching global `UserDefaults`.
     private let shouldPopOutOnNavigateAway: @MainActor () -> Bool
 
+    /// Whether completed video playback should advance to a related video.
+    /// Injected so playback tests do not depend on shared UserDefaults state.
+    private let shouldAutoplayRelatedVideos: @MainActor () -> Bool
+
     init(
         webKitManager: WebKitManager = .shared,
         playbackController: (any YouTubeWatchPlaybackControlling)? = nil,
         shouldPopOutOnNavigateAway: @escaping @MainActor () -> Bool = { SettingsManager.shared.popOutVideoOnNavigateAway },
+        shouldAutoplayRelatedVideos: @escaping @MainActor () -> Bool = { SettingsManager.shared.youtubeAutoplayEnabled },
         playbackLoadingTimeout: Duration = .seconds(15)
     ) {
         self.webKitManager = webKitManager
         self.playbackController = playbackController ?? YouTubeWatchWebView.shared
         self.shouldPopOutOnNavigateAway = shouldPopOutOnNavigateAway
+        self.shouldAutoplayRelatedVideos = shouldAutoplayRelatedVideos
         self.playbackLoadingTimeout = playbackLoadingTimeout
     }
 
@@ -1098,6 +1104,25 @@ final class YouTubePlayerService {
 }
 
 extension YouTubePlayerService {
+    /// Called only after `handleVideoEnded` accepted the event for the current
+    /// video. The skip runs on a later main-actor turn so the ended event is fully
+    /// committed first; the intent generation claimed here loses to any user
+    /// command issued in the meantime, and `skipForward` re-checks it after a fetch.
+    private func autoplayRelatedVideoIfEnabled() {
+        guard self.shouldAutoplayRelatedVideos(),
+              let videoId = self.currentVideo?.videoId
+        else { return }
+
+        let playbackIntentGeneration = self.beginYouTubePlaybackIntent()
+        Task {
+            guard self.currentWatchConcluded,
+                  self.youtubePlaybackIntentGeneration == playbackIntentGeneration,
+                  self.currentVideo?.videoId == videoId
+            else { return }
+            await self.skipForward(ownedBy: playbackIntentGeneration)
+        }
+    }
+
     private func beginPlaybackLoading() {
         self.playbackLoadingTimeoutTask?.cancel()
         self.playbackLoadingGeneration &+= 1
@@ -1670,6 +1695,7 @@ extension YouTubePlayerService {
         // user was already sitting on Home (no navigation fires).
         if self.signalWatchConclusion() {
             self.watchActivityGeneration += 1
+            self.autoplayRelatedVideoIfEnabled()
             self.onVideoEnded?(videoId)
         }
         return true

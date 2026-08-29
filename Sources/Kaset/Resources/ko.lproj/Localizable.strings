@@ -52,6 +52,8 @@
 "Audiobook" = "오디오북";
 "Auto" = "자동";
 "Automatically check for updates" = "자동으로 업데이트 확인";
+"Automatically play a related video when the current video ends." = "현재 동영상이 끝나면 관련 동영상을 자동으로 재생합니다.";
+"Autoplay Related Videos" = "관련 동영상 자동 재생";
 "Available" = "사용 가능";
 "Back 30 seconds" = "30초 뒤로";
 "Background Playback" = "백그라운드 재생";

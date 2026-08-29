@@ -52,6 +52,8 @@
 "Audiobook" = "Audiolivro";
 "Auto" = "Automático";
 "Automatically check for updates" = "Procurar atualizações automaticamente";
+"Automatically play a related video when the current video ends." = "Reproduz automaticamente um vídeo relacionado quando o vídeo atual termina.";
+"Autoplay Related Videos" = "Reproduzir vídeos relacionados automaticamente";
 "Available" = "Disponível";
 "Back 30 seconds" = "Recuar 30 segundos";
 "Background Playback" = "Reprodução em segundo plano";

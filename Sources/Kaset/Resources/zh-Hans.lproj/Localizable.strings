@@ -58,6 +58,8 @@
 "Audiobook" = "有声书";
 "Auto" = "自动";
 "Automatically check for updates" = "自动检查更新";
+"Automatically play a related video when the current video ends." = "当前视频结束时自动播放相关视频。";
+"Autoplay Related Videos" = "自动播放相关视频";
 "Available" = "可用";
 "Back 30 seconds" = "后退 30 秒";
 "Background Playback" = "后台播放";

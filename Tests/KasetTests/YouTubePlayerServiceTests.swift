@@ -167,7 +167,8 @@ struct YouTubePlayerServiceTests {
         // assertions don't depend on the global SettingsManager.shared state.
         self.sut = YouTubePlayerService(
             playbackController: self.controller,
-            shouldPopOutOnNavigateAway: { true }
+            shouldPopOutOnNavigateAway: { true },
+            shouldAutoplayRelatedVideos: { false }
         )
     }
 
@@ -632,7 +633,11 @@ struct YouTubePlayerServiceTests {
         sut.inlineSurfaceWillDisappear(videoId: "abc")
         #expect(sut.surfaceLocation == .floating)
     }
+}
 
+// MARK: - Playback Completion
+
+extension YouTubePlayerServiceTests {
     @Test("Video ended invokes the hook and clears isPlaying")
     func videoEnded() {
         self.sut.play(video: MockYouTubeClient.makeVideo(videoId: "abc"))

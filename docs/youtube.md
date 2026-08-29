@@ -180,6 +180,21 @@ page:
    per-frame while active. Defines `window.__kasetExtractVideo()` so
    `didFinish` can re-run it on cached loads.
 
+### Related Video Autoplay
+
+**Autoplay Related Videos** (Settings → YouTube → Playback, off by default)
+makes an accepted `VIDEO_ENDED` behave like a press of the bar's next button:
+`YouTubePlayerService` claims a playback-intent generation and calls
+`skipForward`, which takes the first `upNext` entry or, when that list is empty
+(floating window), fetches the related list through `getWatchNext`. Playback
+stays ended when no related video is available or the request fails. Any user
+command issued in the meantime claims a newer generation, so the pending
+autoplay is dropped. Changing the setting takes effect at the next video end.
+
+YouTube's page-owned autonav stays disabled. Kaset owns the transition so its
+player state, watch history, inline navigation, and floating window stay in
+sync.
+
 Captions and quality are driven through the `movie_player` API
 (`getOption('captions','tracklist')`, `setPlaybackQualityRange`), fetched
 with retries once playback starts; the caption overlay is whitelisted in
@@ -320,9 +335,8 @@ the native scrubber is disabled; YouTube Premium accounts see no ads.
   invent additional multi-turn fields, and still omits `streaming_panel`, brand
   accounts, persisted conversations, telemetry, clickable generated links, and
   Apple Intelligence dependencies.
-- No auto-advance to the next related video after `VIDEO_ENDED` (YouTube
-  autonav is disabled; Kaset shows the ended state — the bar's next
-  button advances manually).
+- With **Autoplay Related Videos** off (the default), Kaset shows the ended
+  state after `VIDEO_ENDED` and the bar's next button advances manually.
 - Initial like state is not parsed (actions are optimistic from
   `.none`); subscribe state is seeded from watch-next.
 - Watch-page DOM selectors (`#movie_player`, autonav toggle) can shift;

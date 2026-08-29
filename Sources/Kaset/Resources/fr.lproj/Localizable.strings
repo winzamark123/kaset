@@ -52,6 +52,8 @@
 "Audiobook" = "Livre audio";
 "Auto" = "Automatique";
 "Automatically check for updates" = "Vérifier automatiquement les mises à jour";
+"Automatically play a related video when the current video ends." = "Lit automatiquement une vidéo associée à la fin de la vidéo actuelle.";
+"Autoplay Related Videos" = "Lecture automatique des vidéos associées";
 "Available" = "Disponible";
 "Back 30 seconds" = "Reculer de 30 secondes";
 "Background Playback" = "Lecture en arrière-plan";

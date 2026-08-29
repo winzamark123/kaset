@@ -52,6 +52,8 @@
 "Audiobook" = "Buku audio";
 "Auto" = "Otomatis";
 "Automatically check for updates" = "Periksa pembaruan secara otomatis";
+"Automatically play a related video when the current video ends." = "Putar video terkait secara otomatis saat video saat ini berakhir.";
+"Autoplay Related Videos" = "Putar Otomatis Video Terkait";
 "Available" = "Tersedia";
 "Back 30 seconds" = "Mundur 30 detik";
 "Background Playback" = "Putar di Latar Belakang";
