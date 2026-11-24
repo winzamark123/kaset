@@ -33,8 +33,6 @@ extension EnvironmentValues {
     @Entry var onPlaylistDeleted: (() -> Void)?
 }
 
-// MARK: - KasetApp
-
 /// Main entry point for the Kaset macOS application.
 @main
 struct KasetApp: App {
@@ -481,11 +479,13 @@ struct KasetApp: App {
 
                 // Lyrics - ⌘L
                 Button(self.playerService.showLyrics ? "Hide Lyrics" : "Show Lyrics") {
+                    guard self.settings.appSource == .music else { return }
                     withAnimation(.easeInOut(duration: 0.2)) {
                         self.playerService.showLyrics.toggle()
                     }
                 }
                 .keyboardShortcut("l", modifiers: .command)
+                .disabled(self.settings.appSource != .music)
             }
 
             // Navigation commands - replace default sidebar toggle
@@ -770,8 +770,6 @@ struct KasetApp: App {
         }
     }
 
-    // MARK: - URL Handling
-
     /// Handles an incoming URL (from custom scheme).
     private func handleIncomingURL(_ url: URL) {
         DiagnosticsLogger.app.info("Received URL: \(url.absoluteString)")
@@ -840,8 +838,6 @@ struct KasetApp: App {
         }
     }
 }
-
-// MARK: - SettingsView
 
 /// Main settings view with tabbed navigation.
 struct SettingsView: View {
